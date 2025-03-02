@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project/features/setting/views/widgets/dark_mode_widget.dart';
 
 class SettingView extends StatelessWidget {
   static const String path = '/setting';
@@ -12,8 +13,10 @@ class SettingView extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Setting'),
       ),
-      body: const Center(
-        child: Text('Setting View'),
+      body: ListView(
+        children: const [
+          DarkModeWidget(),
+        ],
       ),
     );
   }
