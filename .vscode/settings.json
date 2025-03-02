@@ -1,0 +1,14 @@
+{
+  "editor.defaultFormatter": "Dart-Code.dart-code",  // Dart 전용 포매터 설정
+  "[dart]": {
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "editor.defaultFormatter": "Dart-Code.dart-code",
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "always"
+    },
+    "editor.wordWrap": "on",                // 자동 줄 바꿈 활성화
+    "editor.wordWrapColumn": 80,            // 줄 바꿈 기준 글자 수 설정 (예: 80자)
+    "editor.wrappingIndent": "indent"   
+  }
+}
