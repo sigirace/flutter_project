@@ -1,28 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/constants/sizes.dart';
 
-class TextFieldWidget extends StatelessWidget {
+class TextFormFieldWidget extends StatelessWidget {
   final String hintText;
   final TextEditingController controller;
   final bool? obscureText;
   final TextInputType? keyboardType;
-  final TextInputAction? textInputAction;
+  final String? Function(String?) validator;
 
-  const TextFieldWidget({
+  const TextFormFieldWidget({
     super.key,
     required this.hintText,
     required this.controller,
     this.obscureText = false,
     this.keyboardType = TextInputType.text,
-    this.textInputAction = TextInputAction.next,
+    required this.validator,
   });
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       controller: controller,
       keyboardType: keyboardType,
-      textInputAction: textInputAction,
       obscureText: obscureText ?? false,
       autocorrect: false,
       decoration: InputDecoration(
@@ -39,7 +38,14 @@ class TextFieldWidget extends StatelessWidget {
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(Sizes.size30),
         ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(Sizes.size30),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(Sizes.size30),
+        ),
       ),
+      validator: (value) => validator.call(value),
     );
   }
 }

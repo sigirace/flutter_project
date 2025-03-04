@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/authentications/view_models/sign_up_view_model.dart';
 import 'package:flutter_project/common/widgets/button_widget.dart';
-import 'package:flutter_project/common/widgets/text_field_widget.dart';
+import 'package:flutter_project/common/widgets/text_form_field_widget.dart';
 import 'package:flutter_project/constants/fontsize.dart';
 import 'package:flutter_project/constants/gaps.dart';
 import 'package:flutter_project/constants/sizes.dart';
-import 'package:flutter_project/features/feature/views/feature_screen.dart';
+import 'package:flutter_project/utils/validator.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -22,17 +22,11 @@ class SignUpScreen extends ConsumerStatefulWidget {
 class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    // 모든 포커스를 강제로 해제
-    FocusScope.of(context).requestFocus(FocusNode());
   }
 
   @override
@@ -43,12 +37,14 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   }
 
   void _onCreateAccountButtonPressed() {
-    final userData = ref.read(signUpForm);
-    ref.read(signUpForm.notifier).state = userData.copyWith(
-      email: _emailController.text,
-      password: _passwordController.text,
-    );
-    ref.read(signUpProvider.notifier).signUp(context);
+    if (_formKey.currentState!.validate()) {
+      final userData = ref.read(signUpForm);
+      ref.read(signUpForm.notifier).state = userData.copyWith(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+      ref.read(signUpProvider.notifier).signUp(context);
+    }
   }
 
   void _onLoginButtonPressed() {
@@ -85,16 +81,25 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                     ),
                   ),
                   Gaps.v50,
-                  TextFieldWidget(
-                    hintText: 'Email',
-                    controller: _emailController,
-                    keyboardType: TextInputType.emailAddress,
-                  ),
-                  Gaps.v16,
-                  TextFieldWidget(
-                    hintText: 'Password',
-                    controller: _passwordController,
-                    obscureText: true,
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        TextFormFieldWidget(
+                          hintText: 'Email',
+                          controller: _emailController,
+                          keyboardType: TextInputType.emailAddress,
+                          validator: validateEmail,
+                        ),
+                        Gaps.v16,
+                        TextFormFieldWidget(
+                          hintText: 'Password',
+                          controller: _passwordController,
+                          obscureText: true,
+                          validator: validatePassword,
+                        ),
+                      ],
+                    ),
                   ),
                   Gaps.v24,
                   ButtonWidget(

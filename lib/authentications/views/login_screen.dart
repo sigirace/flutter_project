@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project/authentications/view_models/log_in_view_model.dart';
 import 'package:flutter_project/authentications/views/sign_up_screen.dart';
 import 'package:flutter_project/common/widgets/button_widget.dart';
-import 'package:flutter_project/common/widgets/text_field_widget.dart';
+import 'package:flutter_project/common/widgets/text_form_field_widget.dart';
 import 'package:flutter_project/constants/fontsize.dart';
 import 'package:flutter_project/constants/gaps.dart';
 import 'package:flutter_project/constants/sizes.dart';
+import 'package:flutter_project/utils/validator.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -22,17 +23,10 @@ class LoginScreen extends ConsumerStatefulWidget {
 class _LoginScreenState extends ConsumerState<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
+  final _formKey = GlobalKey<FormState>();
   @override
   void initState() {
     super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    // 모든 포커스를 강제로 해제
-    FocusScope.of(context).requestFocus(FocusNode());
   }
 
   @override
@@ -43,11 +37,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   }
 
   void _onEnterButtonPressed() {
-    ref.read(loginProvider.notifier).login(
-          _emailController.text,
-          _passwordController.text,
-          context,
-        );
+    if (_formKey.currentState!.validate()) {
+      ref.read(loginProvider.notifier).login(
+            _emailController.text,
+            _passwordController.text,
+            context,
+          );
+    }
   }
 
   void _onSignUpButtonPressed() {
@@ -83,16 +79,25 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     ),
                   ),
                   Gaps.v50,
-                  TextFieldWidget(
-                    hintText: 'Email',
-                    controller: _emailController,
-                    keyboardType: TextInputType.emailAddress,
-                  ),
-                  Gaps.v16,
-                  TextFieldWidget(
-                    hintText: 'Password',
-                    controller: _passwordController,
-                    obscureText: true,
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        TextFormFieldWidget(
+                          hintText: 'Email',
+                          controller: _emailController,
+                          keyboardType: TextInputType.emailAddress,
+                          validator: validateEmail,
+                        ),
+                        Gaps.v16,
+                        TextFormFieldWidget(
+                          hintText: 'Password',
+                          controller: _passwordController,
+                          obscureText: true,
+                          validator: validatePassword,
+                        ),
+                      ],
+                    ),
                   ),
                   Gaps.v24,
                   ButtonWidget(
