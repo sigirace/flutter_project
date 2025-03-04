@@ -1,25 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project/authentications/view_models/log_in_view_model.dart';
 import 'package:flutter_project/authentications/views/sign_up_screen.dart';
 import 'package:flutter_project/common/widgets/button_widget.dart';
 import 'package:flutter_project/common/widgets/text_field_widget.dart';
 import 'package:flutter_project/constants/fontsize.dart';
 import 'package:flutter_project/constants/gaps.dart';
 import 'package:flutter_project/constants/sizes.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends ConsumerStatefulWidget {
   static const routeName = 'login';
   static const routePath = '/login';
 
   const LoginScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  ConsumerState<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+class _LoginScreenState extends ConsumerState<LoginScreen> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   void initState() {
@@ -35,15 +37,17 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
     super.dispose();
   }
 
   void _onEnterButtonPressed() {
-    // TODO: 로그인 로직 추가
-    print(emailController.text);
-    print(passwordController.text);
+    ref.read(loginProvider.notifier).login(
+          _emailController.text,
+          _passwordController.text,
+          context,
+        );
   }
 
   void _onSignUpButtonPressed() {
@@ -81,13 +85,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   Gaps.v50,
                   TextFieldWidget(
                     hintText: 'Email',
-                    controller: emailController,
+                    controller: _emailController,
                     keyboardType: TextInputType.emailAddress,
                   ),
                   Gaps.v16,
                   TextFieldWidget(
                     hintText: 'Password',
-                    controller: passwordController,
+                    controller: _passwordController,
                     obscureText: true,
                   ),
                   Gaps.v24,

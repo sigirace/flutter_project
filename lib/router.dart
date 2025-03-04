@@ -1,3 +1,4 @@
+import 'package:flutter_project/authentications/repos/auth_repo.dart';
 import 'package:flutter_project/authentications/views/login_screen.dart';
 import 'package:flutter_project/authentications/views/sign_up_screen.dart';
 import 'package:flutter_project/features/feature/views/feature_screen.dart';
@@ -7,7 +8,16 @@ import 'package:go_router/go_router.dart';
 
 final routerProvider = Provider((ref) {
   return GoRouter(
-    initialLocation: '/login',
+    initialLocation: '/',
+    redirect: (context, state) {
+      final isLoggedIn = ref.read(authRepo).isLoggedIn;
+      if (state.subloc != SignUpScreen.routePath &&
+          state.subloc != LoginScreen.routePath &&
+          !isLoggedIn) {
+        return LoginScreen.routePath;
+      }
+      return null;
+    },
     routes: [
       GoRoute(
         path: FeatureScreen.routePath,

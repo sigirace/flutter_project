@@ -22,7 +22,9 @@ class FeatureScreen extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () => _onPressed(context),
-            icon: const FaIcon(FontAwesomeIcons.gear),
+            icon: const FaIcon(
+              FontAwesomeIcons.gear,
+            ),
           ),
         ],
       ),

@@ -47,7 +47,7 @@ class App extends ConsumerWidget {
             appBarTheme: const AppBarTheme(
               surfaceTintColor: Color(0xFFECE6C2),
               backgroundColor: Color(0xFFECE6C2),
-              foregroundColor: Color(0xFFECE6C2),
+              foregroundColor: Colors.black,
               elevation: 0,
               titleTextStyle: TextStyle(
                 fontWeight: FontWeight.bold,

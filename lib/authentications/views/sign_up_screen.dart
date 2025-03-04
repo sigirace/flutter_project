@@ -1,24 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project/authentications/view_models/sign_up_view_model.dart';
 import 'package:flutter_project/common/widgets/button_widget.dart';
 import 'package:flutter_project/common/widgets/text_field_widget.dart';
 import 'package:flutter_project/constants/fontsize.dart';
 import 'package:flutter_project/constants/gaps.dart';
 import 'package:flutter_project/constants/sizes.dart';
+import 'package:flutter_project/features/feature/views/feature_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class SignUpScreen extends StatefulWidget {
+class SignUpScreen extends ConsumerStatefulWidget {
   static const routeName = 'sign_up';
   static const routePath = '/sign_up';
 
   const SignUpScreen({super.key});
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  ConsumerState<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+class _SignUpScreenState extends ConsumerState<SignUpScreen> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   void initState() {
@@ -34,15 +37,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
     super.dispose();
   }
 
   void _onCreateAccountButtonPressed() {
-    // TODO: 회원가입 로직 추가
-    print(emailController.text);
-    print(passwordController.text);
+    final userData = ref.read(signUpForm);
+    ref.read(signUpForm.notifier).state = userData.copyWith(
+      email: _emailController.text,
+      password: _passwordController.text,
+    );
+    ref.read(signUpProvider.notifier).signUp(context);
   }
 
   void _onLoginButtonPressed() {
@@ -51,6 +57,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isLoading = ref.watch(signUpProvider).isLoading;
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -80,18 +87,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   Gaps.v50,
                   TextFieldWidget(
                     hintText: 'Email',
-                    controller: emailController,
+                    controller: _emailController,
                     keyboardType: TextInputType.emailAddress,
                   ),
                   Gaps.v16,
                   TextFieldWidget(
                     hintText: 'Password',
-                    controller: passwordController,
+                    controller: _passwordController,
                     obscureText: true,
                   ),
                   Gaps.v24,
                   ButtonWidget(
-                    text: 'Create Account',
+                    text: isLoading ? 'Sing Up...' : 'Create Account',
                     onTap: _onCreateAccountButtonPressed,
                   ),
                 ],

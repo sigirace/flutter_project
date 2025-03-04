@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/features/setting/views/widgets/dark_mode_widget.dart';
+import 'package:flutter_project/features/setting/views/widgets/log_out_widget.dart';
 
 class SettingView extends StatelessWidget {
   static const String routePath = '/setting';
@@ -16,6 +17,7 @@ class SettingView extends StatelessWidget {
       body: ListView(
         children: const [
           DarkModeWidget(),
+          LogOutWidget(),
         ],
       ),
     );
