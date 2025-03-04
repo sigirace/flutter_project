@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project/features/setting/views/widgets/dark_mode_widget.dart';
 
 class SettingView extends StatelessWidget {
-  static const String path = '/setting';
-  static const String name = 'setting';
+  static const String routePath = '/setting';
+  static const String routeName = 'setting';
 
   const SettingView({super.key});
 

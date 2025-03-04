@@ -1,8 +1,10 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/constants/fontsize.dart';
 import 'package:flutter_project/constants/sizes.dart';
 import 'package:flutter_project/features/setting/repos/setting_repo.dart';
 import 'package:flutter_project/features/setting/view_models/mode_view_model.dart';
+import 'package:flutter_project/firebase_options.dart';
 import 'package:flutter_project/router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,6 +14,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final preference = await SharedPreferences.getInstance();
   final repository = SettingRepository(preference);
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   runApp(
     ProviderScope(
@@ -40,11 +43,11 @@ class App extends ConsumerWidget {
               : ThemeMode.light,
           theme: ThemeData(
             brightness: Brightness.light,
-            scaffoldBackgroundColor: Colors.white,
+            scaffoldBackgroundColor: const Color(0xFFECE6C2),
             appBarTheme: const AppBarTheme(
-              surfaceTintColor: Colors.white,
-              backgroundColor: Colors.white,
-              foregroundColor: Colors.black,
+              surfaceTintColor: Color(0xFFECE6C2),
+              backgroundColor: Color(0xFFECE6C2),
+              foregroundColor: Color(0xFFECE6C2),
               elevation: 0,
               titleTextStyle: TextStyle(
                 fontWeight: FontWeight.bold,
@@ -53,11 +56,11 @@ class App extends ConsumerWidget {
               ),
             ),
             bottomSheetTheme: const BottomSheetThemeData(
-              backgroundColor: Colors.white,
+              backgroundColor: Color(0xFFECE6C2),
             ),
             bottomAppBarTheme: const BottomAppBarTheme(
               elevation: 0,
-              color: Colors.white,
+              color: Color(0xFFECE6C2),
             ),
             inputDecorationTheme: InputDecorationTheme(
               labelStyle: TextStyle(
@@ -82,7 +85,7 @@ class App extends ConsumerWidget {
             textSelectionTheme: const TextSelectionThemeData(
               cursorColor: Color(0xFF4E98E9),
             ),
-            primaryColor: const Color(0xFF4E98E9),
+            primaryColor: const Color(0xFFFEA6F6),
             useMaterial3: true,
           ),
           darkTheme: ThemeData(
@@ -129,7 +132,7 @@ class App extends ConsumerWidget {
             textSelectionTheme: const TextSelectionThemeData(
               cursorColor: Color(0xFF4E98E9),
             ),
-            primaryColor: const Color(0xFF4E98E9),
+            primaryColor: const Color.fromARGB(255, 22, 128, 241),
             useMaterial3: true,
           ),
           routerConfig: ref.watch(routerProvider),

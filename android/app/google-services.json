@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "245116336855",
+    "project_id": "flutter-project-sigi",
+    "storage_bucket": "flutter-project-sigi.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:245116336855:android:ff09a4d3b2d83e2ffc8e92",
+        "android_client_info": {
+          "package_name": "com.example.flutter_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnDMAxhkUhtoec0Xhn-2W8fBY78ri9uUg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
