@@ -45,6 +45,8 @@ dependencies:
   firebase_auth: ^5.5.1
   cloud_firestore: ^5.6.5
   firebase_storage: ^12.4.4
+  intl: ^0.20.2
+  uuid: ^4.5.1
 
 dev_dependencies:
   flutter_test:
@@ -84,6 +86,19 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
+  fonts:
+    - family: Snow
+      fonts:
+        - asset: assets/fonts/SFTTF.ttf
+    - family: SB-B
+      fonts:
+        - asset: assets/fonts/SB-B.ttf
+    - family: SB-L
+      fonts:
+        - asset: assets/fonts/SB-L.ttf
+    - family: SB-M
+      fonts:
+        - asset: assets/fonts/SB-M.ttf
   # fonts:
   #   - family: Schyler
   #     fonts:

@@ -28,7 +28,10 @@ class LogOutWidget extends ConsumerWidget {
           CupertinoDialogAction(
             onPressed: () {
               ref.read(loginProvider.notifier).signOut();
-              context.go(LoginScreen.routePath);
+              if (context.mounted) {
+                Navigator.pop(context);
+                context.go(LoginScreen.routePath);
+              }
             },
             isDestructiveAction: true,
             child: const Text("Yes"),

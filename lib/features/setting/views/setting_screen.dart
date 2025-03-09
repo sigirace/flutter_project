@@ -13,6 +13,8 @@ class SettingView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Setting'),
+        surfaceTintColor: Colors.white,
+        backgroundColor: Colors.white,
       ),
       body: ListView(
         children: const [

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/authentications/view_models/sign_up_view_model.dart';
-import 'package:flutter_project/common/widgets/button_widget.dart';
-import 'package:flutter_project/common/widgets/text_form_field_widget.dart';
+import 'package:flutter_project/authentications/views/widgets/button_widget.dart';
+import 'package:flutter_project/authentications/views/widgets/text_form_field_widget.dart';
 import 'package:flutter_project/constants/fontsize.dart';
 import 'package:flutter_project/constants/gaps.dart';
 import 'package:flutter_project/constants/sizes.dart';
@@ -58,59 +58,67 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          title: const Text('🔥 MOOD 🔥'),
-        ),
         body: Padding(
-          padding: const EdgeInsets.only(
-            left: Sizes.size50,
-            right: Sizes.size50,
-            top: Sizes.size100,
-            bottom: Sizes.size50,
+          padding: EdgeInsets.only(
+            left: Width.w50,
+            right: Width.w50,
+            top: Height.h100 * 2,
+            bottom: Height.h50,
           ),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                children: [
-                  Text(
-                    'Join!',
-                    style: TextStyle(
-                      fontSize: FontSize.fs20,
-                      fontWeight: FontWeight.bold,
-                    ),
+              Container(
+                height: Height.h100 * 1.5,
+                alignment: Alignment.center,
+                child: Text(
+                  "정보를 입력해주세요",
+                  style: TextStyle(
+                    fontSize: FontSize.fs20,
+                    fontWeight: FontWeight.bold,
                   ),
-                  Gaps.v50,
-                  Form(
-                    key: _formKey,
-                    child: Column(
-                      children: [
-                        TextFormFieldWidget(
-                          hintText: 'Email',
-                          controller: _emailController,
-                          keyboardType: TextInputType.emailAddress,
-                          validator: validateEmail,
-                        ),
-                        Gaps.v16,
-                        TextFormFieldWidget(
-                          hintText: 'Password',
-                          controller: _passwordController,
-                          obscureText: true,
-                          validator: validatePassword,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Gaps.v24,
-                  ButtonWidget(
-                    text: isLoading ? 'Sing Up...' : 'Create Account',
-                    onTap: _onCreateAccountButtonPressed,
-                  ),
-                ],
+                ),
               ),
-              ButtonWidget(
-                text: 'Log in →',
-                onTap: _onLoginButtonPressed,
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          TextFormFieldWidget(
+                            hintText: 'Email',
+                            controller: _emailController,
+                            keyboardType: TextInputType.emailAddress,
+                            validator: validateEmail,
+                          ),
+                          Gaps.v16,
+                          TextFormFieldWidget(
+                            hintText: 'Password',
+                            controller: _passwordController,
+                            obscureText: true,
+                            validator: validatePassword,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Gaps.v24,
+                    ButtonWidget(
+                      text: isLoading ? '가입 요청중...' : '가입하기',
+                      onTap: _onCreateAccountButtonPressed,
+                    ),
+                  ],
+                ),
+              ),
+              TextButton(
+                onPressed: _onLoginButtonPressed,
+                child: Text(
+                  '계정이 있으신가요?',
+                  style: TextStyle(
+                    fontSize: FontSize.fs12,
+                    color: Colors.black,
+                  ),
+                ),
               ),
             ],
           ),

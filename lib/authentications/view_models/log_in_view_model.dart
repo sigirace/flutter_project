@@ -1,8 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/authentications/repos/auth_repo.dart';
-import 'package:flutter_project/common/widgets/firebase_error.dart';
-import 'package:flutter_project/features/feature/views/feature_screen.dart';
+import 'package:flutter_project/common/widgets/firebase_error_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -28,7 +27,7 @@ class LogInViewModel extends AsyncNotifier<void> {
       if (state.hasError) {
         showFirebaseErrorSnack(context, state.error as FirebaseException);
       } else {
-        context.go(FeatureScreen.routePath);
+        context.go("/home");
       }
     }
   }

@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_project/constants/fonts.dart';
 import 'package:flutter_project/constants/fontsize.dart';
 import 'package:flutter_project/constants/sizes.dart';
 import 'package:flutter_project/features/setting/repos/setting_repo.dart';
@@ -42,25 +43,17 @@ class App extends ConsumerWidget {
               ? ThemeMode.dark
               : ThemeMode.light,
           theme: ThemeData(
+            fontFamily: FontFamily.sbL,
             brightness: Brightness.light,
-            scaffoldBackgroundColor: const Color(0xFFECE6C2),
+            scaffoldBackgroundColor: Colors.white,
             appBarTheme: const AppBarTheme(
-              surfaceTintColor: Color(0xFFECE6C2),
-              backgroundColor: Color(0xFFECE6C2),
               foregroundColor: Colors.black,
               elevation: 0,
               titleTextStyle: TextStyle(
-                fontWeight: FontWeight.bold,
+                fontFamily: FontFamily.sbM,
                 fontSize: Sizes.size20,
                 color: Colors.black,
               ),
-            ),
-            bottomSheetTheme: const BottomSheetThemeData(
-              backgroundColor: Color(0xFFECE6C2),
-            ),
-            bottomAppBarTheme: const BottomAppBarTheme(
-              elevation: 0,
-              color: Color(0xFFECE6C2),
             ),
             inputDecorationTheme: InputDecorationTheme(
               labelStyle: TextStyle(
@@ -89,6 +82,7 @@ class App extends ConsumerWidget {
             useMaterial3: true,
           ),
           darkTheme: ThemeData(
+            fontFamily: FontFamily.sbL,
             brightness: Brightness.dark,
             scaffoldBackgroundColor: Colors.black,
             appBarTheme: AppBarTheme(
@@ -97,7 +91,7 @@ class App extends ConsumerWidget {
               foregroundColor: Colors.grey.shade400,
               elevation: 0,
               titleTextStyle: TextStyle(
-                fontWeight: FontWeight.bold,
+                fontFamily: FontFamily.sbM,
                 fontSize: Sizes.size20,
                 color: Colors.grey.shade400,
               ),
